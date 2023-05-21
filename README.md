@@ -1,7 +1,7 @@
 # OwlPlus
 Elevate Your Owl Experience!
 
-![OwlPlus Enabled](owlplus-enabled.png)
+![OwlPlus Enabled](OwlPlus-enabled.png)
 
 ## The Power of OwlPlus
 OwlPlus is a Chrome extension that enhances your browsing experience on Western University's learning management system, Owl. With OwlPlus, you can unlock a range of powerful features that improve usability, accessibility, and customization options. Take control of your online learning with these key features:
