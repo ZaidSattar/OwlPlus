@@ -1,11 +1,12 @@
-// Listen for messages from the popup or background script
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.action === "enableDarkMode") {
     enableDarkMode();
     saveDarkModeState(true);
+    sendResponse({ success: true });
   } else if (request.action === "disableDarkMode") {
     disableDarkMode();
     saveDarkModeState(false);
+    sendResponse({ success: true });
   }
 });
 
@@ -28,7 +29,6 @@ function enableDarkMode() {
   }
 }
 
-// Function to disable dark mode
 function disableDarkMode() {
   document.querySelector("html").style.filter = "";
   document.querySelector("html").style.backgroundColor = "";
@@ -41,19 +41,16 @@ function disableDarkMode() {
     mediaItem.style.filter = "";
   });
 
-  // Reset the background color of the .Mrphs-topHeader element
   let topHeader = document.querySelector(".Mrphs-topHeader");
   if (topHeader) {
     topHeader.style.backgroundColor = "";
   }
 }
 
-// Function to save dark mode state
 function saveDarkModeState(enabled) {
   chrome.storage.local.set({ darkModeEnabled: enabled });
 }
 
-// Function to retrieve dark mode state
 function getDarkModeState() {
   return new Promise((resolve) => {
     chrome.storage.local.get("darkModeEnabled", function(result) {
@@ -62,7 +59,6 @@ function getDarkModeState() {
   });
 }
 
-// On page load, check and apply the saved dark mode state
 getDarkModeState().then((enabled) => {
   if (enabled) {
     enableDarkMode();
@@ -70,3 +66,20 @@ getDarkModeState().then((enabled) => {
     disableDarkMode();
   }
 });
+
+
+function displayNotification() {
+  const notification = document.createElement("div");
+  notification.textContent = "Dark mode has been enabled!";
+  notification.style.background = "black";
+  notification.style.color = "white";
+  notification.style.padding = "10px";
+  notification.style.position = "fixed";
+  notification.style.top = "10px";
+  notification.style.left = "10px";
+  notification.style.zIndex = "9999";
+  document.body.appendChild(notification);
+}
+
+// Call the example function
+displayNotification();
